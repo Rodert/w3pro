@@ -11,7 +11,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Rodert/w3pro/internal"
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
@@ -22,6 +21,7 @@ import (
 	"github.com/lmittmann/w3/module/eth"
 	"github.com/lmittmann/w3/rpctest"
 	"github.com/lmittmann/w3/w3types"
+	"github.com/rodert/w3pro/internal"
 	"golang.org/x/time/rate"
 )
 

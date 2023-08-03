@@ -6,9 +6,9 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/Rodert/w3pro/internal"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/google/go-cmp/cmp"
+	"github.com/rodert/w3pro/internal"
 )
 
 func TestCopy(t *testing.T) {

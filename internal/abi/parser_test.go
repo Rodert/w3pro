@@ -5,10 +5,10 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/Rodert/w3pro/internal"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
+	"github.com/rodert/w3pro/internal"
 )
 
 var (
