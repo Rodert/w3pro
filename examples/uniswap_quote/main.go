@@ -82,6 +82,7 @@ func main() {
 
 	// fetch quotes
 	var (
+		// fees: Mobile pools with different tax rates
 		fees       = []*big.Int{big.NewInt(100), big.NewInt(500), big.NewInt(3000), big.NewInt(10000)}
 		calls      = make([]w3types.Caller, len(fees))
 		amountsOut = make([]big.Int, len(fees))
