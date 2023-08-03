@@ -11,7 +11,7 @@ import (
 	"strings"
 
 	"github.com/ethereum/go-ethereum/rpc"
-	"github.com/lmittmann/w3/w3types"
+	"github.com/rodert/w3pro/w3types"
 	"golang.org/x/time/rate"
 )
 
@@ -52,7 +52,7 @@ func Dial(rawurl string, opts ...Option) (*Client, error) {
 func MustDial(rawurl string, opts ...Option) *Client {
 	client, err := Dial(rawurl, opts...)
 	if err != nil {
-		panic(fmt.Sprintf("w3: %s", err))
+		panic(fmt.Sprintf("w3pro: %s", err))
 	}
 	return client
 }
@@ -160,7 +160,7 @@ type CallErrors []error
 
 func (e CallErrors) Error() string {
 	if len(e) == 1 && e[0] != nil {
-		return fmt.Sprintf("w3: call failed: %s", e[0])
+		return fmt.Sprintf("w3pro: call failed: %s", e[0])
 	}
 
 	var errors []string
@@ -175,7 +175,7 @@ func (e CallErrors) Error() string {
 	if len(errors) > 1 {
 		plr = "s"
 	}
-	return fmt.Sprintf("w3: %d call%s failed:\n%s", len(errors), plr, strings.Join(errors, "\n"))
+	return fmt.Sprintf("w3pro: %d call%s failed:\n%s", len(errors), plr, strings.Join(errors, "\n"))
 }
 
 func (e CallErrors) Is(target error) bool {

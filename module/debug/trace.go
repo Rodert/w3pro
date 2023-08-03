@@ -9,8 +9,8 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/vm"
 	"github.com/holiman/uint256"
-	"github.com/lmittmann/w3/w3types"
 	"github.com/rodert/w3pro/internal/module"
+	"github.com/rodert/w3pro/w3types"
 )
 
 // TraceCall requests the trace of the given message.

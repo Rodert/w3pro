@@ -4,9 +4,9 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/lmittmann/w3"
-	"github.com/lmittmann/w3/module/eth"
-	"github.com/lmittmann/w3/rpctest"
+	"github.com/rodert/w3pro"
+	"github.com/rodert/w3pro/module/eth"
+	"github.com/rodert/w3pro/rpctest"
 )
 
 func TestGasPrice(t *testing.T) {
@@ -14,7 +14,7 @@ func TestGasPrice(t *testing.T) {
 		{
 			Golden:  "gas_price",
 			Call:    eth.GasPrice(),
-			WantRet: *w3.I("0xc0fe"),
+			WantRet: *w3pro.I("0xc0fe"),
 		},
 	}
 

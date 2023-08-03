@@ -4,8 +4,8 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/lmittmann/w3/w3types"
 	"github.com/rodert/w3pro/internal/module"
+	"github.com/rodert/w3pro/w3types"
 )
 
 // Balance requests the balance of the given common.Address addr at the given

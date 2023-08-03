@@ -6,8 +6,8 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/lmittmann/w3/module/txpool"
-	"github.com/lmittmann/w3/rpctest"
+	"github.com/rodert/w3pro/module/txpool"
+	"github.com/rodert/w3pro/rpctest"
 )
 
 func TestContent(t *testing.T) {

@@ -8,9 +8,9 @@ import (
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-	"github.com/lmittmann/w3"
-	"github.com/lmittmann/w3/w3types"
+	"github.com/rodert/w3pro"
 	"github.com/rodert/w3pro/internal"
+	"github.com/rodert/w3pro/w3types"
 )
 
 type TestCase[T any] struct {
@@ -31,7 +31,7 @@ func RunTestCases[T any](t *testing.T, tests []TestCase[T], opts ...cmp.Option) 
 			srv := NewFileServer(t, fmt.Sprintf("testdata/%s.golden", test.Golden))
 			defer srv.Close()
 
-			client := w3.MustDial(srv.URL())
+			client := w3pro.MustDial(srv.URL())
 			defer client.Close()
 
 			gotErr := client.Call(test.Call.Returns(&test.GotRet))

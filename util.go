@@ -101,13 +101,13 @@ func H(hexHash string) (hash common.Hash) {
 // I supports the units "ether" or "eth" and "gwei" for decimal number strings.
 // E.g.:
 //
-//	w3.I("1 ether")   -> 1000000000000000000
-//	w3.I("1.2 ether") -> 1200000000000000000
+//	w3pro.I("1 ether")   -> 1000000000000000000
+//	w3pro.I("1.2 ether") -> 1200000000000000000
 //
 // Fractional digits that exceed the units maximum number of fractional digits
 // are ignored. E.g.:
 //
-//	w3.I("0.000000123456 gwei") -> 123
+//	w3pro.I("0.000000123456 gwei") -> 123
 func I(strInt string) *big.Int {
 	if has0xPrefix(strInt) {
 		return parseHexBig(strInt)

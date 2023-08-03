@@ -4,8 +4,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/lmittmann/w3/module/web3"
-	"github.com/lmittmann/w3/rpctest"
+	"github.com/rodert/w3pro/module/web3"
+	"github.com/rodert/w3pro/rpctest"
 )
 
 func TestClientVersion(t *testing.T) {
@@ -18,7 +18,7 @@ func TestClientVersion(t *testing.T) {
 		{
 			Golden:  "client_version__err",
 			Call:    web3.ClientVersion(),
-			WantErr: errors.New("w3: call failed: the method web3_clientVersion does not exist/is not available"),
+			WantErr: errors.New("w3pro: call failed: the method web3_clientVersion does not exist/is not available"),
 		},
 	}
 

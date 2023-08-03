@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/lmittmann/w3/w3types"
 	"github.com/rodert/w3pro/internal/module"
+	"github.com/rodert/w3pro/w3types"
 )
 
 // Status requests the number of pending and queued transactions in the transaction pool.

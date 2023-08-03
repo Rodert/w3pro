@@ -27,18 +27,18 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/lmittmann/w3"
-	"github.com/lmittmann/w3/module/eth"
-	"github.com/lmittmann/w3/w3types"
+	"github.com/rodert/w3pro"
+	"github.com/rodert/w3pro/module/eth"
+	"github.com/rodert/w3pro/w3types"
 )
 
 var (
-	addrUniV3Quoter = w3.A("0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6")
+	addrUniV3Quoter = w3pro.A("0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6")
 
-	funcQuoteExactInputSingle = w3.MustNewFunc("quoteExactInputSingle(address tokenIn, address tokenOut, uint24 fee, uint256 amountIn, uint160 sqrtPriceLimitX96)", "uint256 amountOut")
-	funcName                  = w3.MustNewFunc("name()", "string")
-	funcSymbol                = w3.MustNewFunc("symbol()", "string")
-	funcDecimals              = w3.MustNewFunc("decimals()", "uint8")
+	funcQuoteExactInputSingle = w3pro.MustNewFunc("quoteExactInputSingle(address tokenIn, address tokenOut, uint24 fee, uint256 amountIn, uint160 sqrtPriceLimitX96)", "uint256 amountOut")
+	funcName                  = w3pro.MustNewFunc("name()", "string")
+	funcSymbol                = w3pro.MustNewFunc("symbol()", "string")
+	funcDecimals              = w3pro.MustNewFunc("decimals()", "uint8")
 
 	// flags
 	addrTokenIn  common.Address
@@ -48,9 +48,9 @@ var (
 
 func main() {
 	// parse flags
-	flag.TextVar(&amountIn, "amountIn", w3.I("1 ether"), "Token address")
-	flag.TextVar(&addrTokenIn, "tokenIn", w3.A("0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"), "Token in")
-	flag.TextVar(&addrTokenOut, "tokenOut", w3.A("0x6B175474E89094C44Da98b954EedeAC495271d0F"), "Token out")
+	flag.TextVar(&amountIn, "amountIn", w3pro.I("1 ether"), "Token address")
+	flag.TextVar(&addrTokenIn, "tokenIn", w3pro.A("0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"), "Token in")
+	flag.TextVar(&addrTokenOut, "tokenOut", w3pro.A("0x6B175474E89094C44Da98b954EedeAC495271d0F"), "Token out")
 	flag.Usage = func() {
 		fmt.Println("uniswap_quote prints the UniSwap V3 exchange rate to swap amontIn of tokenIn for tokenOut.")
 		flag.PrintDefaults()
@@ -58,7 +58,7 @@ func main() {
 	flag.Parse()
 
 	// connect to RPC endpoint
-	client := w3.MustDial("https://rpc.ankr.com/eth")
+	client := w3pro.MustDial("https://rpc.ankr.com/eth")
 	defer client.Close()
 
 	// fetch token details
@@ -90,10 +90,10 @@ func main() {
 		amountsOut = make([]big.Int, len(fees))
 	)
 	for i, fee := range fees {
-		calls[i] = eth.CallFunc(funcQuoteExactInputSingle, addrUniV3Quoter, addrTokenIn, addrTokenOut, fee, &amountIn, w3.Big0).Returns(&amountsOut[i])
+		calls[i] = eth.CallFunc(funcQuoteExactInputSingle, addrUniV3Quoter, addrTokenIn, addrTokenOut, fee, &amountIn, w3pro.Big0).Returns(&amountsOut[i])
 	}
 	err := client.Call(calls...)
-	callErrs, ok := err.(w3.CallErrors)
+	callErrs, ok := err.(w3pro.CallErrors)
 	if err != nil && !ok {
 		fmt.Printf("Failed to fetch quotes: %v\n", err)
 		return
@@ -102,13 +102,13 @@ func main() {
 
 	// print quotes
 	fmt.Printf("Exchange %q for %q\n", tokenInName, tokenOutName)
-	fmt.Printf("Amount in:\n  %s %s\n", w3.FromWei(&amountIn, tokenInDecimals), tokenInSymbol)
+	fmt.Printf("Amount in:\n  %s %s\n", w3pro.FromWei(&amountIn, tokenInDecimals), tokenInSymbol)
 	fmt.Printf("Amount out:\n")
 	for i, fee := range fees {
 		if ok && callErrs[i] != nil {
 			fmt.Printf("  Pool (fee=%5v): Pool does not exist\n", fee)
 			continue
 		}
-		fmt.Printf("  Pool (fee=%5v): %s %s\n", fee, w3.FromWei(&amountsOut[i], tokenOutDecimals), tokenOutSymbol)
+		fmt.Printf("  Pool (fee=%5v): %s %s\n", fee, w3pro.FromWei(&amountsOut[i], tokenOutDecimals), tokenOutSymbol)
 	}
 }

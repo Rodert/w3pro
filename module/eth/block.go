@@ -6,8 +6,8 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/lmittmann/w3/w3types"
 	"github.com/rodert/w3pro/internal/module"
+	"github.com/rodert/w3pro/w3types"
 )
 
 // BlockByHash requests the block with the given hash with full transactions.

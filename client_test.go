@@ -17,11 +17,11 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/ethereum/go-ethereum/rpc"
 	"github.com/google/go-cmp/cmp"
-	"github.com/lmittmann/w3"
-	"github.com/lmittmann/w3/module/eth"
-	"github.com/lmittmann/w3/rpctest"
-	"github.com/lmittmann/w3/w3types"
+	"github.com/rodert/w3pro"
 	"github.com/rodert/w3pro/internal"
+	"github.com/rodert/w3pro/module/eth"
+	"github.com/rodert/w3pro/rpctest"
+	"github.com/rodert/w3pro/w3types"
 	"golang.org/x/time/rate"
 )
 
@@ -35,7 +35,7 @@ var (
 )
 
 func ExampleDial() {
-	client, err := w3.Dial("https://rpc.ankr.com/eth")
+	client, err := w3pro.Dial("https://rpc.ankr.com/eth")
 	if err != nil {
 		// ...
 	}
@@ -43,23 +43,23 @@ func ExampleDial() {
 }
 
 func ExampleMustDial() {
-	client := w3.MustDial("https://rpc.ankr.com/eth")
+	client := w3pro.MustDial("https://rpc.ankr.com/eth")
 	defer client.Close()
 }
 
 func ExampleClient_Call() {
 	// Connect to RPC endpoint (or panic on error) and
 	// close the connection when you are done.
-	client := w3.MustDial("https://rpc.ankr.com/eth")
+	client := w3pro.MustDial("https://rpc.ankr.com/eth")
 	defer client.Close()
 
 	var (
-		addr  = w3.A("0x000000000000000000000000000000000000dEaD")
-		weth9 = w3.A("0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2")
+		addr  = w3pro.A("0x000000000000000000000000000000000000dEaD")
+		weth9 = w3pro.A("0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2")
 
 		// Declare a Smart Contract function using Solidity syntax,
 		// no "abigen" and ABI JSON file needed.
-		balanceOf = w3.MustNewFunc("balanceOf(address)", "uint256")
+		balanceOf = w3pro.MustNewFunc("balanceOf(address)", "uint256")
 
 		// Declare variables for the RPC responses.
 		ethBalance   big.Int
@@ -82,11 +82,11 @@ func ExampleClient_Call() {
 }
 
 func ExampleClient_Call_nonceAndBalance() {
-	client := w3.MustDial("https://rpc.ankr.com/eth")
+	client := w3pro.MustDial("https://rpc.ankr.com/eth")
 	defer client.Close()
 
 	var (
-		addr = w3.A("0x000000000000000000000000000000000000c0Fe")
+		addr = w3pro.A("0x000000000000000000000000000000000000c0Fe")
 
 		nonce   uint64
 		balance big.Int
@@ -100,7 +100,7 @@ func ExampleClient_Call_nonceAndBalance() {
 		return
 	}
 
-	fmt.Printf("%s: Nonce: %d, Balance: ♦%s\n", addr, nonce, w3.FromWei(&balance, 18))
+	fmt.Printf("%s: Nonce: %d, Balance: ♦%s\n", addr, nonce, w3pro.FromWei(&balance, 18))
 }
 
 func TestClientCall(t *testing.T) {
@@ -121,7 +121,7 @@ func TestClientCall(t *testing.T) {
 		{
 			Buf:     bytes.NewBufferString(jsonCalls1),
 			Calls:   []w3types.Caller{&testCaller{ReturnErr: errors.New("err")}},
-			WantErr: errors.New("w3: call failed: err"),
+			WantErr: errors.New("w3pro: call failed: err"),
 		},
 		{
 			Buf: bytes.NewBufferString(jsonCalls2),
@@ -137,7 +137,7 @@ func TestClientCall(t *testing.T) {
 				&testCaller{ReturnErr: errors.New("err")},
 				&testCaller{},
 			},
-			WantErr: errors.New("w3: 1 call failed:\ncall[0]: err"),
+			WantErr: errors.New("w3pro: 1 call failed:\ncall[0]: err"),
 		},
 		{
 			Buf: bytes.NewBufferString(jsonCalls2),
@@ -145,7 +145,7 @@ func TestClientCall(t *testing.T) {
 				&testCaller{},
 				&testCaller{ReturnErr: errors.New("err")},
 			},
-			WantErr: errors.New("w3: 1 call failed:\ncall[1]: err"),
+			WantErr: errors.New("w3pro: 1 call failed:\ncall[1]: err"),
 		},
 		{
 			Buf: bytes.NewBufferString(jsonCalls2),
@@ -153,7 +153,7 @@ func TestClientCall(t *testing.T) {
 				&testCaller{ReturnErr: errors.New("err")},
 				&testCaller{ReturnErr: errors.New("err")},
 			},
-			WantErr: errors.New("w3: 2 calls failed:\ncall[0]: err\ncall[1]: err"),
+			WantErr: errors.New("w3pro: 2 calls failed:\ncall[0]: err\ncall[1]: err"),
 		},
 	}
 
@@ -161,7 +161,7 @@ func TestClientCall(t *testing.T) {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			srv := rpctest.NewServer(t, test.Buf)
 
-			client, err := w3.Dial(srv.URL())
+			client, err := w3pro.Dial(srv.URL())
 			if err != nil {
 				t.Fatalf("Failed to connect to test RPC endpoint: %v", err)
 			}
@@ -179,7 +179,7 @@ func TestClientCall(t *testing.T) {
 func TestClientCall_CallErrors(t *testing.T) {
 	srv := rpctest.NewServer(t, bytes.NewBufferString(jsonCalls2))
 
-	client, err := w3.Dial(srv.URL())
+	client, err := w3pro.Dial(srv.URL())
 	if err != nil {
 		t.Fatalf("Failed to connect to test RPC endpoint: %v", err)
 	}
@@ -188,10 +188,10 @@ func TestClientCall_CallErrors(t *testing.T) {
 	if err == nil {
 		t.Fatal("Want error")
 	}
-	if !errors.Is(err, w3.CallErrors{}) {
-		t.Fatalf("Want w3.CallErrors, got %T", err)
+	if !errors.Is(err, w3pro.CallErrors{}) {
+		t.Fatalf("Want w3pro.CallErrors, got %T", err)
 	}
-	callErrs := err.(w3.CallErrors)
+	callErrs := err.(w3pro.CallErrors)
 	if callErrs[0] != nil {
 		t.Errorf("callErrs[0]: want <nil>, got %v", callErrs[0])
 	}
@@ -218,7 +218,7 @@ func BenchmarkCall_BalanceNonce(b *testing.B) {
 		b.Skipf("Missing -benchRPC")
 	}
 
-	w3Client := w3.MustDial(*benchRPC)
+	w3Client := w3pro.MustDial(*benchRPC)
 	defer w3Client.Close()
 
 	ethClient, _ := ethclient.Dial(*benchRPC)
@@ -252,7 +252,7 @@ func BenchmarkCall_Balance100(b *testing.B) {
 		b.Skipf("Missing -benchRPC")
 	}
 
-	w3Client := w3.MustDial(*benchRPC)
+	w3Client := w3pro.MustDial(*benchRPC)
 	defer w3Client.Close()
 
 	ethClient, _ := ethclient.Dial(*benchRPC)
@@ -288,7 +288,7 @@ func BenchmarkCall_BalanceOf100(b *testing.B) {
 		b.Skipf("Missing -benchRPC")
 	}
 
-	w3Client := w3.MustDial(*benchRPC)
+	w3Client := w3pro.MustDial(*benchRPC)
 	defer w3Client.Close()
 
 	ethClient, _ := ethclient.Dial(*benchRPC)
@@ -299,8 +299,8 @@ func BenchmarkCall_BalanceOf100(b *testing.B) {
 		addr100[i] = common.BigToAddress(big.NewInt(int64(i)))
 	}
 
-	funcBalanceOf := w3.MustNewFunc("balanceOf(address)", "uint256")
-	addrWeth9 := w3.A("0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2")
+	funcBalanceOf := w3pro.MustNewFunc("balanceOf(address)", "uint256")
+	addrWeth9 := w3pro.A("0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2")
 
 	b.Run("Batch", func(b *testing.B) {
 		var balance big.Int
@@ -334,7 +334,7 @@ func BenchmarkCall_Block100(b *testing.B) {
 		b.Skipf("Missing -benchRPC")
 	}
 
-	w3Client := w3.MustDial(*benchRPC)
+	w3Client := w3pro.MustDial(*benchRPC)
 	defer w3Client.Close()
 
 	ethClient, _ := ethclient.Dial(*benchRPC)
@@ -368,8 +368,8 @@ func BenchmarkCall_Block100(b *testing.B) {
 func ExampleWithRateLimiter() {
 	// Limit the client to 30 requests per second and allow bursts of up to
 	// 100 requests.
-	client := w3.MustDial("https://rpc.ankr.com/eth",
-		w3.WithRateLimiter(rate.NewLimiter(rate.Every(time.Second/30), 100), nil),
+	client := w3pro.MustDial("https://rpc.ankr.com/eth",
+		w3pro.WithRateLimiter(rate.NewLimiter(rate.Every(time.Second/30), 100), nil),
 	)
 	defer client.Close()
 }

@@ -11,11 +11,11 @@ import (
 )
 
 var (
-	ErrInvalidABI       = errors.New("w3: invalid ABI")
-	ErrArgumentMismatch = errors.New("w3: argument mismatch")
-	ErrReturnsMismatch  = errors.New("w3: returns mismatch")
-	ErrInvalidType      = errors.New("w3: invalid type")
-	ErrEvmRevert        = errors.New("w3: evm reverted")
+	ErrInvalidABI       = errors.New("w3pro: invalid ABI")
+	ErrArgumentMismatch = errors.New("w3pro: argument mismatch")
+	ErrReturnsMismatch  = errors.New("w3pro: returns mismatch")
+	ErrInvalidType      = errors.New("w3pro: invalid type")
+	ErrEvmRevert        = errors.New("w3pro: evm reverted")
 
 	revertSelector       = selector("Error(string)")
 	outputSuccess        = B("0x0000000000000000000000000000000000000000000000000000000000000001")
@@ -83,10 +83,10 @@ func (f *Func) EncodeArgs(args ...any) ([]byte, error) {
 // DecodeArgs ABI-decodes the given input to the given args.
 func (f *Func) DecodeArgs(input []byte, args ...any) error {
 	if len(input) < 4 {
-		return errors.New("w3: insufficient input length")
+		return errors.New("w3pro: insufficient input length")
 	}
 	if !bytes.Equal(input[:4], f.Selector[:]) {
-		return errors.New("w3: input does not match selector")
+		return errors.New("w3pro: input does not match selector")
 	}
 	return _abi.Arguments(f.Args).Decode(input[4:], args...)
 }

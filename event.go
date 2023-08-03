@@ -61,7 +61,7 @@ func MustNewEvent(signature string) *Event {
 // DecodeArgs decodes the topics and data of the given log to the given args.
 func (e *Event) DecodeArgs(log *types.Log, args ...any) error {
 	if len(log.Topics) <= 0 || e.Topic0 != log.Topics[0] {
-		return fmt.Errorf("w3: topic0 mismatch")
+		return fmt.Errorf("w3pro: topic0 mismatch")
 	}
 
 	if len(e.Args) != len(args) {
