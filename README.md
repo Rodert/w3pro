@@ -2,7 +2,7 @@
 
 实现了一个极快且模块化的以太坊 JSON RPC 客户端，支持一流的 ABI 。
 
-[中文]() | [English]() | [にほんご]()
+[中文](wiki/README_zh.md) | [English](wiki/README_en.md) | [にほんご](wiki/README_jp.md)
 
 # w3pro
 Support mainstream Ethereum ABI calls, quickly master web3
