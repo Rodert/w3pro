@@ -3,9 +3,9 @@ package eth
 import (
 	"math/big"
 
+	"github.com/Rodert/w3pro/internal/module"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/lmittmann/w3/w3types"
-	"github.com/rodert/w3pro/internal/module"
 )
 
 // Code requests the code of the given common.Address addr at the given

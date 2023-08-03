@@ -1,8 +1,8 @@
 package web3
 
 import (
+	"github.com/Rodert/w3pro/internal/module"
 	"github.com/lmittmann/w3/w3types"
-	"github.com/rodert/w3pro/internal/module"
 )
 
 // ClientVersion requests the endpoints client version.

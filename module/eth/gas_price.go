@@ -3,8 +3,8 @@ package eth
 import (
 	"math/big"
 
+	"github.com/Rodert/w3pro/internal/module"
 	"github.com/lmittmann/w3/w3types"
-	"github.com/rodert/w3pro/internal/module"
 )
 
 // GasPrice requests the current gas price in wei.

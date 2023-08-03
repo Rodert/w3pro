@@ -1,8 +1,8 @@
 package eth
 
 import (
+	"github.com/Rodert/w3pro/internal/module"
 	"github.com/lmittmann/w3/w3types"
-	"github.com/rodert/w3pro/internal/module"
 )
 
 // ChainID requests the chains ID.

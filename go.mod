@@ -1,4 +1,4 @@
-module github.com/rodert/w3pro
+module github.com/Rodert/w3pro
 
 go 1.18
 

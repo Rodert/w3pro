@@ -8,12 +8,12 @@ import (
 	"strconv"
 	"testing"
 
+	"github.com/Rodert/w3pro/internal"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/lmittmann/w3"
 	"github.com/lmittmann/w3/w3types"
-	"github.com/rodert/w3pro/internal"
 )
 
 func ExampleNewFunc() {

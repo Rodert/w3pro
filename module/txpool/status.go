@@ -3,9 +3,9 @@ package txpool
 import (
 	"encoding/json"
 
+	"github.com/Rodert/w3pro/internal/module"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/lmittmann/w3/w3types"
-	"github.com/rodert/w3pro/internal/module"
 )
 
 // Status requests the number of pending and queued transactions in the transaction pool.
