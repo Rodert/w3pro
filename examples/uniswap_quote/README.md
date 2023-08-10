@@ -1,4 +1,18 @@
+## 案例
 
+
+```bash
+1WETH 兑换多少 BNB
+
+go run main.go -tokenOut 0xB8c77482e45F1F44dE1745F52C74426C631bDD52
+```
+
+
+```bash
+1USDT 兑换多少 DAI
+
+go run main.go -tokenIn 0xdAC17F958D2ee523a2206206994597C13D831ec7 -amountIn 1000000
+```
 
 #### quoteExactInputSingle 函数的 5 个参数分别代表的意思:
 
