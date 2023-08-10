@@ -114,8 +114,8 @@ github.com/prometheus/procfs v0.11.1/go.mod h1:eesXgaPo1q7lBpVMoMy0ZOFTth9hBn4W/
 github.com/rivo/uniseg v0.2.0/go.mod h1:J6wj4VEh+S6ZtnVlnTBMWIodfgj8LQOQFoIToxlJtxc=
 github.com/rivo/uniseg v0.4.4 h1:8TfxU8dW6PdqD27gjM8MVNuicgxIjxpm4K7x4jp8sis=
 github.com/rivo/uniseg v0.4.4/go.mod h1:FN3SvrM+Zdj16jyLfmOkMNblXMcoc8DfTHruCPUcx88=
-github.com/rodert/w3pro v0.0.0-20230803085643-5587b16d8605 h1:c+ZMm2FdrxjIAkWrB7YQzT+vLP6W+t/adVOAKqVlBgg=
-github.com/rodert/w3pro v0.0.0-20230803085643-5587b16d8605/go.mod h1:eB/4IJslmQMYt/uBIe/27jh3isVCmc3S0PmkoKWp3aU=
+github.com/rodert/w3pro v0.0.0-20230810054051-69fe5da3ba74 h1:0LpH9NlIv4whCul0qGQnYbIDrIqFsVaAVHHDUArANVI=
+github.com/rodert/w3pro v0.0.0-20230810054051-69fe5da3ba74/go.mod h1:1ko5N3ZIUlkNnhJ5IYnMNOk63IS0kk9oY+qJ7yo3J4Q=
 github.com/rogpeppe/go-internal v1.9.0/go.mod h1:WtVeX8xhTBvf0smdhujwtBcq4Qrzq/fJaraNFVN+nFs=
 github.com/rogpeppe/go-internal v1.11.0 h1:cWPaGQEPrBb5/AsnsZesgZZ9yb1OQ+GOISoDNXVBh4M=
 github.com/rogpeppe/go-internal v1.11.0/go.mod h1:ddIwULY96R17DhadqLgMfk9H9tvdUzkipdSkR5nkCZA=
