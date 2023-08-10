@@ -9,13 +9,13 @@ import (
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/rpc"
 	"github.com/rodert/w3pro/internal/module"
-	"github.com/rodert/w3pro/w3types"
+	"github.com/rodert/w3pro/w3protypes"
 )
 
 // Call requests the output data of the given message at the given blockNumber.
 // If blockNumber is nil, the output of the message at the latest known block is
 // requested.
-func Call(msg *w3types.Message, blockNumber *big.Int, overrides w3types.State) w3types.CallerFactory[[]byte] {
+func Call(msg *w3protypes.Message, blockNumber *big.Int, overrides w3protypes.State) w3protypes.CallerFactory[[]byte] {
 	args := []any{msg, module.BlockNumberArg(blockNumber)}
 	if overrides != nil {
 		args = append(args, overrides)
@@ -32,7 +32,7 @@ func Call(msg *w3types.Message, blockNumber *big.Int, overrides w3types.State) w
 // EstimateGas requests the estimated gas cost of the given message at the given
 // blockNumber. If blockNumber is nil, the estimated gas cost of the message at
 // the latest block is requested.
-func EstimateGas(msg *w3types.Message, blockNumber *big.Int) w3types.CallerFactory[uint64] {
+func EstimateGas(msg *w3protypes.Message, blockNumber *big.Int) w3protypes.CallerFactory[uint64] {
 	return module.NewFactory(
 		"eth_estimateGas",
 		[]any{msg, module.BlockNumberArg(blockNumber)},
@@ -44,7 +44,7 @@ func EstimateGas(msg *w3types.Message, blockNumber *big.Int) w3types.CallerFacto
 // AccessList requests the access list of the given message at the given
 // blockNumber. If blockNumber is nil, the access list of the message at the
 // latest block is requested.
-func AccessList(msg *w3types.Message, blockNumber *big.Int) w3types.CallerFactory[AccessListResponse] {
+func AccessList(msg *w3protypes.Message, blockNumber *big.Int) w3protypes.CallerFactory[AccessListResponse] {
 	return module.NewFactory(
 		"eth_createAccessList",
 		[]any{msg, module.BlockNumberArg(blockNumber)},
@@ -75,7 +75,7 @@ func (resp *AccessListResponse) UnmarshalJSON(data []byte) error {
 }
 
 func msgArgsWrapper(slice []any) ([]any, error) {
-	msg := slice[0].(*w3types.Message)
+	msg := slice[0].(*w3protypes.Message)
 	if msg.Input != nil || msg.Func == nil {
 		return slice, nil
 	}
@@ -91,24 +91,24 @@ func msgArgsWrapper(slice []any) ([]any, error) {
 
 // CallFunc requests the returns of Func fn at common.Address contract with the
 // given args.
-func CallFunc(fn w3types.Func, contract common.Address, args ...any) *CallFuncFactory {
+func CallFunc(fn w3protypes.Func, contract common.Address, args ...any) *CallFuncFactory {
 	return &CallFuncFactory{fn: fn, contract: contract, args: args}
 }
 
 type CallFuncFactory struct {
 	// args
-	fn        w3types.Func
+	fn        w3protypes.Func
 	contract  common.Address
 	args      []any
 	atBlock   *big.Int
-	overrides w3types.State
+	overrides w3protypes.State
 
 	// returns
 	result  []byte
 	returns []any
 }
 
-func (f *CallFuncFactory) Returns(returns ...any) w3types.Caller {
+func (f *CallFuncFactory) Returns(returns ...any) w3protypes.Caller {
 	f.returns = returns
 	return f
 }
@@ -118,7 +118,7 @@ func (f *CallFuncFactory) AtBlock(blockNumber *big.Int) *CallFuncFactory {
 	return f
 }
 
-func (f *CallFuncFactory) Overrides(overrides w3types.State) *CallFuncFactory {
+func (f *CallFuncFactory) Overrides(overrides w3protypes.State) *CallFuncFactory {
 	f.overrides = overrides
 	return f
 }
@@ -130,7 +130,7 @@ func (f *CallFuncFactory) CreateRequest() (rpc.BatchElem, error) {
 	}
 
 	args := []any{
-		&w3types.Message{
+		&w3protypes.Message{
 			To:    &f.contract,
 			Input: input,
 		},

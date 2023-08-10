@@ -7,11 +7,11 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/rodert/w3pro/internal/module"
-	"github.com/rodert/w3pro/w3types"
+	"github.com/rodert/w3pro/w3protypes"
 )
 
 // CallTraceCall requests the call trace of the given message.
-func CallTraceCall(msg *w3types.Message, blockNumber *big.Int, overrides w3types.State) w3types.CallerFactory[CallTrace] {
+func CallTraceCall(msg *w3protypes.Message, blockNumber *big.Int, overrides w3protypes.State) w3protypes.CallerFactory[CallTrace] {
 	return module.NewFactory(
 		"debug_traceCall",
 		[]any{msg, module.BlockNumberArg(blockNumber), &traceConfig{Tracer: "callTracer", Overrides: overrides}},
@@ -20,7 +20,7 @@ func CallTraceCall(msg *w3types.Message, blockNumber *big.Int, overrides w3types
 }
 
 // CallTraceTx requests the call trace of the transaction with the given hash.
-func CallTraceTx(txHash common.Hash, overrides w3types.State) w3types.CallerFactory[CallTrace] {
+func CallTraceTx(txHash common.Hash, overrides w3protypes.State) w3protypes.CallerFactory[CallTrace] {
 	return module.NewFactory[CallTrace](
 		"debug_traceTransaction",
 		[]any{txHash, &traceConfig{Tracer: "callTracer", Overrides: overrides}},
@@ -76,6 +76,6 @@ func (c *CallTrace) UnmarshalJSON(data []byte) error {
 }
 
 type traceConfig struct {
-	Tracer    string        `json:"tracer"`
-	Overrides w3types.State `json:"stateOverrides,omitempty"`
+	Tracer    string           `json:"tracer"`
+	Overrides w3protypes.State `json:"stateOverrides,omitempty"`
 }

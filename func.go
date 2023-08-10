@@ -26,7 +26,7 @@ var (
 
 // Func represents a Smart Contract function ABI binding.
 //
-// Func implements the [w3types.Func] interface.
+// Func implements the [w3protypes.Func] interface.
 type Func struct {
 	Signature string        // Function signature
 	Selector  [4]byte       // 4-byte selector

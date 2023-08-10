@@ -7,7 +7,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/rpc"
-	"github.com/rodert/w3pro/w3types"
+	"github.com/rodert/w3pro/w3protypes"
 )
 
 var (
@@ -43,7 +43,7 @@ func NewFactory[T any](method string, args []any, opts ...Option[T]) *Factory[T]
 	return f
 }
 
-func (f Factory[T]) Returns(ret *T) w3types.Caller {
+func (f Factory[T]) Returns(ret *T) w3protypes.Caller {
 	f.ret = ret
 	return f
 }

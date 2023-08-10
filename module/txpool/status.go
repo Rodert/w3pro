@@ -5,11 +5,11 @@ import (
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/rodert/w3pro/internal/module"
-	"github.com/rodert/w3pro/w3types"
+	"github.com/rodert/w3pro/w3protypes"
 )
 
 // Status requests the number of pending and queued transactions in the transaction pool.
-func Status() w3types.CallerFactory[StatusResponse] {
+func Status() w3protypes.CallerFactory[StatusResponse] {
 	return module.NewFactory[StatusResponse](
 		"txpool_status",
 		nil,

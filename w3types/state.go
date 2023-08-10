@@ -1,4 +1,4 @@
-package w3types
+package w3protypes
 
 import (
 	"encoding/json"

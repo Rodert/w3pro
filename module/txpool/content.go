@@ -7,11 +7,11 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/rodert/w3pro/internal/module"
-	"github.com/rodert/w3pro/w3types"
+	"github.com/rodert/w3pro/w3protypes"
 )
 
 // Content requests the pending and queued transactions in the transaction pool.
-func Content() w3types.CallerFactory[ContentResponse] {
+func Content() w3protypes.CallerFactory[ContentResponse] {
 	return module.NewFactory[ContentResponse](
 		"txpool_content",
 		nil,
@@ -20,7 +20,7 @@ func Content() w3types.CallerFactory[ContentResponse] {
 
 // ContentFrom requests the pending and queued transactions in the transaction pool
 // from the given address.
-func ContentFrom(addr common.Address) w3types.CallerFactory[ContentFromResponse] {
+func ContentFrom(addr common.Address) w3protypes.CallerFactory[ContentFromResponse] {
 	return module.NewFactory[ContentFromResponse](
 		"txpool_contentFrom",
 		[]any{addr},

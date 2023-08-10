@@ -10,11 +10,11 @@ import (
 	"github.com/ethereum/go-ethereum/core/vm"
 	"github.com/holiman/uint256"
 	"github.com/rodert/w3pro/internal/module"
-	"github.com/rodert/w3pro/w3types"
+	"github.com/rodert/w3pro/w3protypes"
 )
 
 // TraceCall requests the trace of the given message.
-func TraceCall(msg *w3types.Message, blockNumber *big.Int, config *TraceConfig) w3types.CallerFactory[Trace] {
+func TraceCall(msg *w3protypes.Message, blockNumber *big.Int, config *TraceConfig) w3protypes.CallerFactory[Trace] {
 	if config == nil {
 		config = &TraceConfig{}
 	}
@@ -26,7 +26,7 @@ func TraceCall(msg *w3types.Message, blockNumber *big.Int, config *TraceConfig) 
 }
 
 // TraceTx requests the trace of the transaction with the given hash.
-func TraceTx(txHash common.Hash, config *TraceConfig) w3types.CallerFactory[Trace] {
+func TraceTx(txHash common.Hash, config *TraceConfig) w3protypes.CallerFactory[Trace] {
 	if config == nil {
 		config = &TraceConfig{}
 	}
@@ -37,22 +37,22 @@ func TraceTx(txHash common.Hash, config *TraceConfig) w3types.CallerFactory[Trac
 }
 
 type TraceConfig struct {
-	Overrides     w3types.State // Override account state
-	EnableStack   bool          // Enable stack capture
-	EnableMemory  bool          // Enable memory capture
-	EnableStorage bool          // Enable storage capture
-	Limit         uint64        // Maximum number of StructLog's to capture (all if zero)
+	Overrides     w3protypes.State // Override account state
+	EnableStack   bool             // Enable stack capture
+	EnableMemory  bool             // Enable memory capture
+	EnableStorage bool             // Enable storage capture
+	Limit         uint64           // Maximum number of StructLog's to capture (all if zero)
 }
 
 // MarshalJSON implements the [json.Marshaler].
 func (c *TraceConfig) MarshalJSON() ([]byte, error) {
 	type config struct {
-		Overrides        w3types.State `json:"stateOverrides,omitempty"`
-		DisableStorage   bool          `json:"disableStorage,omitempty"`
-		DisableStack     bool          `json:"disableStack,omitempty"`
-		EnableMemory     bool          `json:"enableMemory,omitempty"`
-		EnableReturnData bool          `json:"enableReturnData,omitempty"`
-		Limit            uint64        `json:"limit,omitempty"`
+		Overrides        w3protypes.State `json:"stateOverrides,omitempty"`
+		DisableStorage   bool             `json:"disableStorage,omitempty"`
+		DisableStack     bool             `json:"disableStack,omitempty"`
+		EnableMemory     bool             `json:"enableMemory,omitempty"`
+		EnableReturnData bool             `json:"enableReturnData,omitempty"`
+		Limit            uint64           `json:"limit,omitempty"`
 	}
 
 	return json.Marshal(config{
@@ -150,7 +150,7 @@ func (m *memory) UnmarshalJSON(data []byte) error {
 }
 
 func msgArgsWrapper(slice []any) ([]any, error) {
-	msg := slice[0].(*w3types.Message)
+	msg := slice[0].(*w3protypes.Message)
 	if msg.Input != nil || msg.Func == nil {
 		return slice, nil
 	}

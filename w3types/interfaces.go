@@ -1,7 +1,7 @@
 /*
-Package w3types implements common types.
+Package w3protypes implements common types.
 */
-package w3types
+package w3protypes
 
 import "github.com/ethereum/go-ethereum/rpc"
 

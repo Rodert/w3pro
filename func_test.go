@@ -13,7 +13,7 @@ import (
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/rodert/w3pro"
 	"github.com/rodert/w3pro/internal"
-	"github.com/rodert/w3pro/w3types"
+	"github.com/rodert/w3pro/w3protypes"
 )
 
 func ExampleNewFunc() {
@@ -94,7 +94,7 @@ func TestFuncEncodeArgs(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		Func w3types.Func
+		Func w3protypes.Func
 		Args []any
 		Want []byte
 	}{
@@ -228,7 +228,7 @@ func TestFuncDecodeArgs(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		Func     w3types.Func
+		Func     w3protypes.Func
 		Input    []byte
 		Args     []any
 		WantArgs []any
@@ -398,7 +398,7 @@ func TestFuncDecodeReturns(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		Func        w3types.Func
+		Func        w3protypes.Func
 		Output      []byte
 		Returns     []any
 		WantReturns []any

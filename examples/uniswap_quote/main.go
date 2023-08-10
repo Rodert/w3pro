@@ -29,7 +29,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/rodert/w3pro"
 	"github.com/rodert/w3pro/module/eth"
-	"github.com/rodert/w3pro/w3types"
+	"github.com/rodert/w3pro/w3protypes"
 )
 
 var (
@@ -86,7 +86,7 @@ func main() {
 	var (
 		// fees: Mobile pools with different tax rates
 		fees       = []*big.Int{big.NewInt(100), big.NewInt(500), big.NewInt(3000), big.NewInt(10000)}
-		calls      = make([]w3types.Caller, len(fees))
+		calls      = make([]w3protypes.Caller, len(fees))
 		amountsOut = make([]big.Int, len(fees))
 	)
 	for i, fee := range fees {

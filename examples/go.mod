@@ -4,7 +4,6 @@ go 1.18
 
 require (
 	github.com/ethereum/go-ethereum v1.12.0
-	github.com/rodert/w3pro v0.13.0
 	github.com/rodert/w3pro v0.0.0-20230803085643-5587b16d8605
 )
 

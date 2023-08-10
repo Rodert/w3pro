@@ -8,7 +8,7 @@ import (
 	"github.com/rodert/w3pro"
 	"github.com/rodert/w3pro/module/debug"
 	"github.com/rodert/w3pro/rpctest"
-	"github.com/rodert/w3pro/w3types"
+	"github.com/rodert/w3pro/w3protypes"
 )
 
 func TestTraceTx(t *testing.T) {
@@ -46,11 +46,11 @@ func TestTraceCall(t *testing.T) {
 	tests := []rpctest.TestCase[debug.Trace]{
 		{
 			Golden: "traceCall",
-			Call: debug.TraceCall(&w3types.Message{
+			Call: debug.TraceCall(&w3protypes.Message{
 				From:  w3pro.A("0x000000000000000000000000000000000000c0Fe"),
 				To:    w3pro.APtr("0x000000000000000000000000000000000000dEaD"),
 				Value: w3pro.I("1 ether"),
-			}, nil, &debug.TraceConfig{Overrides: w3types.State{
+			}, nil, &debug.TraceConfig{Overrides: w3protypes.State{
 				w3pro.A("0x000000000000000000000000000000000000c0Fe"): {Balance: w3pro.I("1 ether")},
 			}}),
 			WantRet: debug.Trace{
